@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* Habilitar variantes dark en Tailwind CSS v4 */
+@variant dark (&:where(.dark, .dark *));
+
+@layer components {
+
+  /* Botones estilo píldora */
+  .btn-pill {
+    @apply bg-[#063B00] text-white text-sm font-medium px-7 py-3 rounded-full transition shadow-sm inline-block;
+  }
+
+  .btn-pill:hover {
+    @apply bg-[#F69D39] text-[#063B00];
+  }
+
+  /* Tarjetas de pilares */
+  .pilar-card {
+    @apply bg-white p-6 rounded-2xl border border-[#F8E0A4]/70 shadow-sm flex flex-col justify-between;
+    @apply dark:bg-[#082B08] dark:border-[#063B00];
+  }
+
+  /* Iconos circulares */
+  .pilar-icon {
+    @apply w-8 h-8 rounded-full bg-[#F8E0A4] flex items-center justify-center text-[#063B00] text-sm mb-6;
+    @apply dark:bg-[#063B00] dark:text-[#F69D39];
+  }
+
+  /* Subtítulos pequeños */
+  .sub-caption {
+    @apply text-xs text-[#F69D39] uppercase tracking-widest font-semibold block mb-2;
+    @apply dark:text-[#F69D39];
+  }
+}
+
+/* Ajustes específicos del modo oscuro */
+.dark h1 {
+  color: #ffffff !important;
+}
+
+.dark .text-stone-500 {
+  color: #a8a29e !important;
+}

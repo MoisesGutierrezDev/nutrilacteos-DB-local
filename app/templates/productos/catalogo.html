@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block title %}Nutrilácteos - Catálogo de Productos{% endblock %}
+
+{% block content %}
+<!-- CARRUSEL -->
+<section class="max-w-7xl mx-auto px-6 pb-16 pt-4">
+  <div class="bg-[#063B00] dark:bg-[#082B08] text-white rounded-[2rem] p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-md border border-transparent dark:border-[#0D4D0D]">
+    <div class="lg:col-span-6 overflow-hidden rounded-2xl h-[280px] sm:h-[340px] relative w-full bg-[#082B08] dark:bg-[#041F04]">
+      <img id="carousel-img"
+        src="{{ url_for('static', filename='img/helado3.png') }}"
+        alt="Nuestra esencia"
+        class="w-full h-full object-cover transition-all duration-500">
+    </div>
+
+    <div class="lg:col-span-6 space-y-4 px-2 sm:px-6">
+      <span class="text-[#F69D39] font-medium text-lg block">Próximo Lanzamiento</span>
+      <blockquote class="font-serif-custom text-2xl sm:text-3xl font-normal leading-snug text-[#F8E0A4]">
+        "Muy pronto: la dulzura natural de las frutas y el toque cremoso de nuestra leche artesanal se unen en nuestros nuevos helados frutados."
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- Botones del carrusel -->
+  <div class="flex justify-center gap-4 mt-6">
+    <button
+      onclick="prevSlide()"
+      class="w-11 h-11 rounded-full bg-[#F69D39] hover:bg-[#F8E0A4] text-[#063B00] flex items-center justify-center transition cursor-pointer shadow-sm">
+      &#10094;
+    </button>
+
+    <button
+      onclick="nextSlide()"
+      class="w-11 h-11 rounded-full bg-[#F69D39] hover:bg-[#F8E0A4] text-[#063B00] flex items-center justify-center transition cursor-pointer shadow-sm">
+      &#10095;
+    </button>
+  </div>
+</section>
+
+<!-- CATÁLOGO DE PRODUCTOS -->
+<section id="productos" class="max-w-7xl mx-auto px-6 pt-6 pb-16">
+  <!-- ENCABEZADO DE SECCIÓN -->
+  <div class="mb-10 text-left">
+    <span class="text-xs uppercase tracking-widest text-[#F69D39] dark:text-[#F69D39] font-semibold block mb-1">NUESTRO CATÁLOGO</span>
+    <h1 class="text-2xl sm:text-4xl font-serif-custom text-[#063B00] dark:text-white font-semibold uppercase leading-tight">QUESOS, YOGURES Y MÁS, ELABORADOS CON LECHE DE NUESTRO PROPIO GANADO</h1>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- SIDEBAR DE CATEGORÍAS -->
+    <aside class="lg:col-span-3 bg-[#F8E0A4]/40 dark:bg-[#082B08] p-6 rounded-2xl shadow-sm space-y-3 w-full">
+      <h3 class="text-xs font-bold tracking-wider text-[#063B00] dark:text-[#F8E0A4] uppercase mb-4">CATEGORÍAS</h3>
+
+      <!-- TODOS -->
+      <button
+        onclick="filterCategory('todos')"
+        class="cat-btn active w-full flex justify-between items-center px-4 py-2.5 rounded-full text-sm font-semibold transition bg-[#063B00] text-white hover:bg-[#F69D39] hover:text-[#063B00]"
+        data-cat="todos">
+        <span>TODOS</span>
+        <span class="bg-[#F69D39]/30 px-2 py-0.5 rounded-full text-xs">7</span>
+      </button>
+
+      <!-- YOGURES -->
+      <button
+        onclick="filterCategory('yogures')"
+        class="cat-btn w-full flex justify-between items-center px-4 py-2.5 rounded-full text-sm font-semibold transition text-[#063B00] dark:text-stone-200 hover:bg-[#F8E0A4] dark:hover:bg-[#063B00]"
+        data-cat="yogures">
+        <span>YOGURES</span>
+        <span class="text-stone-500 dark:text-stone-400 text-xs">3</span>
+      </button>
+
+      <!-- QUESOS -->
+      <button
+        onclick="filterCategory('quesos')"
+        class="cat-btn w-full flex justify-between items-center px-4 py-2.5 rounded-full text-sm font-semibold transition text-[#063B00] dark:text-stone-200 hover:bg-[#F8E0A4] dark:hover:bg-[#063B00]"
+        data-cat="quesos">
+        <span>QUESOS</span>
+        <span class="text-stone-500 dark:text-stone-400 text-xs">3</span>
+      </button>
+
+      <!-- MANTEQUILLA -->
+      <button
+        onclick="filterCategory('mantequilla')"
+        class="cat-btn w-full flex justify-between items-center px-4 py-2.5 rounded-full text-sm font-semibold transition text-[#063B00] dark:text-stone-200 hover:bg-[#F8E0A4] dark:hover:bg-[#063B00]"
+        data-cat="mantequilla">
+        <span>MANTEQUILLA</span>
+        <span class="text-stone-500 dark:text-stone-400 text-xs">1</span>
+      </button>
+    </aside>
+
+    <!-- TARJETAS DE PRODUCTOS -->
+    <main class="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+
+      <!-- Yogur Plátano -->
+      <div class="product-card yogures group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/yogurt-platano.jpg') }}" 
+                 alt="Yogur Platano" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Yogur sabor Plátano</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Cremosidad y dulce sabor tropical de plátano en cada botella.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="1" 
+                  data-nombre="Yogur sabor Plátano" 
+                  data-precio="10.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Yogur Lúncula -->
+      <div class="product-card yogures group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/yogurt-lucuma.jpg') }}" 
+                 alt="Yogur Lucuma" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Yogur sabor Lúncula</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">El mejor sabor de esta fruta dorada, con la cremosidad y el toque justo de dulzura.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="2" 
+                  data-nombre="Yogur sabor Lúncula" 
+                  data-precio="10.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Yogur Arándano -->
+      <div class="product-card yogures group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/yogurt-arandano.jpg') }}"
+                 alt="Yogur Arándano"
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Yogur sabor Arándano</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Cargado de auténticos arándanos, un sabor irresistible y saludable.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="3" 
+                  data-nombre="Yogur sabor Arándano" 
+                  data-precio="10.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Queso Gouda -->
+      <div class="product-card quesos group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/queso-gouda.jpg') }}" 
+                 alt="Queso Gouda" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Queso Gouda</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Cremosa, suave y perfecto para cualquier ocasión, desde una picada hasta fundido.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="4" 
+                  data-nombre="Queso Gouda" 
+                  data-precio="18.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Queso Paria Orégano -->
+      <div class="product-card quesos group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/queso-oregano.jpg') }}" 
+                 alt="Queso Orégano" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Queso Paria con orégano</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Combinación de sabor suave y especias naturales para cualquier ocasión.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="5" 
+                  data-nombre="Queso Paria con orégano" 
+                  data-precio="16.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Queso Paria -->
+      <div class="product-card quesos group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/queso paria.jpg') }}" 
+                 alt="Queso Paria" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Queso Paria</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Rico en proteína y calcio, ideal para fortalecer tus huesos y acompañar comidas.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="6" 
+                  data-nombre="Queso Paria" 
+                  data-precio="15.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Mantequilla -->
+      <div class="product-card mantequilla group bg-white dark:bg-[#082B08] rounded-2xl overflow-hidden border border-[#F8E0A4]/70 dark:border-[#063B00] shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="overflow-hidden">
+            <img src="{{ url_for('static', filename='img/mantequilla.png') }}" 
+                 alt="Mantequilla" 
+                 class="w-full h-56 object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+          </div>
+          <div class="p-5">
+            <h4 class="font-bold text-[#063B00] dark:text-white text-base">Mantequilla tradicional</h4>
+            <p class="text-stone-500 dark:text-stone-300 text-xs mt-2 leading-relaxed">Elaborada con crema de leche pura de vaca.</p>
+          </div>
+        </div>
+        <div class="px-5 pb-5 pt-1">
+          <button type="button" 
+                  data-id="7" 
+                  data-nombre="Mantequilla tradicional" 
+                  data-precio="12.00" 
+                  onclick="agregarAlCarrito(this)"
+                  class="w-full bg-[#063B00] hover:bg-[#F69D39] text-white hover:text-[#063B00] font-semibold text-xs py-2.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 cursor-pointer">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3v3zm-4 9c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zm-9.83-3.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.13 0-.25-.11-.25-.25z"/>
+            </svg>
+            Agregar
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</section>
+{% endblock %}

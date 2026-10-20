@@ -1,0 +1,17 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Modulos de Node
+node_modules/
+package-lock.json
+package.json
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Archivos de configuracion local de VS Code / Sistema
+.vscode/
+.DS_Store
